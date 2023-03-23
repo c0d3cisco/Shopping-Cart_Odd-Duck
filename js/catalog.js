@@ -12,7 +12,11 @@ function populateForm() {
   //TODO: Add an <option> tag inside the form's select for each product
   const selectElement = document.getElementById('items');
   for (let i in state.allProducts) {
-
+    const optionElement = document.createElement('option');
+    optionElement.value = state.allProducts[i].name;
+    optionElement.textContent = state.allProducts[i].name;
+    selectElement.appendChild(optionElement);
+    console.log(i);
   }
 
 }
@@ -23,7 +27,7 @@ function populateForm() {
 function handleSubmit(event) {
 
   // TODO: Prevent the page from reloading
-
+  event.preventDefault();
   // Do all the things ...
   addSelectedItemToCart();
   state.cart.saveToLocalStorage();
