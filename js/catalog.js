@@ -4,6 +4,8 @@
 
 // Set up an empty cart for use on this page.
 state.cart = new Cart([]);
+state.cart.addItem(new Product('assets/bag.jpg', 'Bag'),3)
+// console.log(state.cart);
 
 // On screen load, we call this method to put all of the product options
 // (the things in the state.allProducts array) into the drop down list.
@@ -18,7 +20,6 @@ function populateForm() {
     selectElement.appendChild(optionElement);
     console.log(i);
   }
-
 }
 
 // When someone submits the form, we need to add the selected item to the cart
@@ -29,24 +30,53 @@ function handleSubmit(event) {
   // TODO: Prevent the page from reloading
   event.preventDefault();
   // Do all the things ...
-  addSelectedItemToCart();
+  addSelectedItemToCart(event);
   state.cart.saveToLocalStorage();
   state.cart.updateCounter();
   updateCartPreview();
-
+  let i = 3;
+  //console.log('preventDefault Function', event); // get true or false from object selected
+  //console.log('preventDefault Function', event.srcElement[2].value); // get number from form
+  
 }
 
 // TODO: Add the selected item and quantity to the cart
-function addSelectedItemToCart() {
+function addSelectedItemToCart(event, cartObt) {
   // TODO: suss out the item picked from the select list
-  // TODO: get the quantity
-  // TODO: using those, add one item to the Cart
+  let productName = '';
+  let x = 0;
+  for(let i = 0; i<event.srcElement[1].length; i++)
+    if(event.srcElement[1][i].selected === true){
+      // productName = event.srcElement[1][i].innerHTML;
+      x=i;
+    }
+    // TODO: get the quantity
+    let quantity = parseInt(event.srcElement[2].value);
+    // FIX HERE FOR DUPLICATION OF ITEMS IN CART
+    // state.cart.items.forEach(item=>{
+    //   if(state.cart.items.includes(product)){
+    //     quantity += state.cart.items[1];
+    //   }
+    // })
+    
+    console.log(state.cart);
+    
+    
+    // TODO: using those, add one item to the Cart
+    
+    state.cart.addItem([state.allProducts[x], quantity]);
+
 }
 
 // TODO: As you add items into the cart, show them (item & quantity) in the cart preview div
 function updateCartPreview() {
-  // TODO: Get the item and quantity from the form
+  // TODO: Get the item and quantity from the form //<div class="card" id="cartContents"></div>
   // TODO: Add a new element to the cartContents div with that information
+  let cartContentEl = document.getElementById('cartContents');
+  let shownItemEl = document.createElement('p');
+  shownItemEl.textContent = `You've added  ${state.cart.product[1]} ${state.cart.product[0].name} to your cart.`
+  cartContentEl.appendChild(shownItemEl);
+
 }
 
 // Set up the "submit" event listener on the form.
