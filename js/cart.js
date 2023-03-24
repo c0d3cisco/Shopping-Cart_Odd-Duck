@@ -74,30 +74,13 @@ function removeItemFromCart(e) {
   let itemSortNumber = parseInt(e.target.id);
   let cartItems = JSON.parse(localStorage.getItem('cart'));
   cartItems.splice(itemSortNumber, 1);
+  // TODO: Save the cart back to local storage
   localStorage.setItem('cart', JSON.stringify(cartItems));
+  // TODO: Re-draw the cart table
   window.location.reload();
 
 
 }
-  // TODO: Save the cart back to local storage
-  // TODO: Re-draw the cart table
-  // TODO: When a delete link is clicked, use cart.removeItem to remove the correct item
- 
-
-  // TODO: Save the cart back to local storage
- 
-
-
-
-
-
-  // TODO: Re-draw the cart table
-  // calling functon
-  // showCart();
-
-
-
-// }
 
 // This will initialize the page and draw the cart on screen
 renderCart();
