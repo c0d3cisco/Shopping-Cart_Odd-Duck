@@ -18,7 +18,7 @@ function populateForm() {
     optionElement.value = state.allProducts[i].name;
     optionElement.textContent = state.allProducts[i].name;
     selectElement.appendChild(optionElement);
-    console.log(i);
+    // console.log(i);
   }
 }
 
@@ -42,6 +42,14 @@ function handleSubmit(event) {
 
 // TODO: Add the selected item and quantity to the cart
 function addSelectedItemToCart(event, cartObt) {
+  let {items, quantity} = event.target
+  let tempProduct = new Product(items.value, quantity.value);
+  state.cart.addItem(items.value, quantity.value);
+  let toBePlaced = JSON.stringify(tempProduct)
+  state.cart.saveToLocalStorage("ItemSelected",tempProduct );
+  console.log('updated state.cart with values of ', state.cart, localStorage );
+
+
   // TODO: suss out the item picked from the select list
   let productName = '';
   let x = 0;
@@ -51,7 +59,7 @@ function addSelectedItemToCart(event, cartObt) {
       x=i;
     }
     // TODO: get the quantity
-    let quantity = parseInt(event.srcElement[2].value);
+    let quantitys = parseInt(event.srcElement[2].value);
     // FIX HERE FOR DUPLICATION OF ITEMS IN CART
     // state.cart.items.forEach(item=>{
     //   if(state.cart.items.includes(product)){
@@ -59,7 +67,9 @@ function addSelectedItemToCart(event, cartObt) {
     //   }
     // })
     
-    console.log(state.cart);
+    // console.log(state.cart);
+
+
     
     
     // TODO: using those, add one item to the Cart
