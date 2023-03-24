@@ -2,8 +2,9 @@
 'use strict';
 
 // Create an event listener so that when the delete link is clicked, the removeItemFromCart method is invoked.
-const table = document.getElementById('cart');
+const table = document.getElementById('cart'); // change back to car
 table.addEventListener('click', removeItemFromCart);
+
 let cart;
 
 function loadCart() {
@@ -41,30 +42,43 @@ function showCart() {
     let tr = document.createElement('tr');
     //TODO: Create a TD for the delete link, quantity,  and the item
     let tag = document.createElement('button');
-    tag.setAttribute('id', ('mybutton' + i));
-    let text = document.createTextNode('Delete ME');
+    tag.setAttribute('id', (i));
+    let text = document.createTextNode('Delete');
     tag.appendChild(text);
     
-    let td = document.createElement('td');
+    let td1 = document.createElement('td');
+    let td2 = document.createElement('td');
     let stingAsWhole = cart.items[i];
-    td.textContent = stingAsWhole[0] + ",  "+ parseInt(stingAsWhole[1]);
-    tr.appendChild(td);
+    td1.textContent = stingAsWhole[0];
+    td2.textContent = parseInt(stingAsWhole[1]);
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(tag);
     tableBody.appendChild(tr);
-    tableBody.appendChild(tag);
     // tableBody.appendChild()
   }
 
 }
 
-function removeItemFromCart(event) {
+function removeItemFromCart(e) {
 
   // let itemToBeRemoved = document.('cart-container');
   // itemToBeRemoved.addEventListener('click', function(event){
   //   let setEvent = document.getElementById(this.click);
   //   setEvent.remove();
 
-  }
+  console.log(e);
+  console.log(e.target.parentNode.childNodes[0].innerHTML);
+  console.log(parseInt(e.target.id));
   // TODO: When a delete link is clicked, use cart.removeItem to remove the correct item
+  let itemSortNumber = parseInt(e.target.id);
+  let cartItems = JSON.parse(localStorage.getItem('cart'));
+  cartItems.splice(itemSortNumber, 1);
+  localStorage.setItem('cart', JSON.stringify(cartItems));
+  window.location.reload();
+
+
+}
   // TODO: Save the cart back to local storage
   // TODO: Re-draw the cart table
   // TODO: When a delete link is clicked, use cart.removeItem to remove the correct item

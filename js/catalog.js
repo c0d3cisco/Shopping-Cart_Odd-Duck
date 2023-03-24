@@ -42,7 +42,7 @@ function handleSubmit(event) {
 }
 
 // TODO: Add the selected item and quantity to the cart
-function addSelectedItemToCart(event, cartObt) {
+function addSelectedItemToCart(event) {
   // TODO: suss out the item picked from the select list
   let productName = '';
   let x = 0;
